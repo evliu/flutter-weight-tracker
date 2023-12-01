@@ -3,6 +3,8 @@ import '../weight/weight_item.dart';
 /// Abstract class for the StoreService using WeightItem as the model
 
 abstract class StoreService {
+  late String userId;
+
   /// Returns a list of WeightItems
   Future<List<WeightItem>> getWeightItems();
 

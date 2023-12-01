@@ -6,17 +6,24 @@ class FirestoreService implements StoreService {
   final _db = FirebaseFirestore.instance;
 
   @override
+  late String userId;
+
+  @override
   Future<List<WeightItem>> getWeightItems() {
-    return _db.collection('weight_items').get().then((snapshot) => snapshot.docs
-        .map(
-          (doc) => WeightItem(
-            id: doc.id,
-            dateTime: doc['dateTime'],
-            weight: doc['weight'],
-            userId: doc['userId'],
-          ),
-        )
-        .toList());
+    return _db
+        .collection('weight_items')
+        .where('userId', isEqualTo: userId)
+        .get()
+        .then((snapshot) => snapshot.docs
+            .map(
+              (doc) => WeightItem(
+                id: doc.id,
+                dateTime: doc['dateTime'],
+                weight: doc['weight'],
+                userId: doc['userId'],
+              ),
+            )
+            .toList());
   }
 
   @override
