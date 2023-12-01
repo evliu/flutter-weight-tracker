@@ -30,53 +30,74 @@ class WeightItemListView extends StatelessWidget {
             },
           ),
         ],
-      ),
-
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      body: Container(
-          decoration: const BoxDecoration(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blue, Colors.blueGrey],
+              colors: [Colors.blue[800]!, Colors.blue[600]!],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ListView.builder(
-                // Providing a restorationId allows the ListView to restore the
-                // scroll position when a user leaves and returns to the app after it
-                // has been killed while running in the background.
-                restorationId: 'weightItemListView',
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = items[index];
+        ),
+      ),
+      body: WeightList(items: items),
+    );
+  }
+}
 
-                  return Card(
-                    child: ListTile(
-                        title: Text('${item.weight.toString()} lbs',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            )),
-                        subtitle: Text(item.dateTime,
-                            style: const TextStyle(fontSize: 10)),
-                        onTap: () {
-                          // Navigate to the details page. If the user leaves and returns to
-                          // the app after it has been killed while running in the
-                          // background, the navigation stack is restored.
-                          Navigator.restorablePushNamed(
-                            context,
-                            WeightItemDetailsView.routeName,
-                          );
-                        }),
-                  );
-                },
-              ))),
+class WeightList extends StatelessWidget {
+  const WeightList({super.key, required this.items});
+
+  final List<WeightItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [Colors.blue[200]!, Colors.blue[700]!],
+          ),
+        ),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: ListView.builder(
+              restorationId: 'weightItemListView',
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = items[index];
+
+                return WeightListTile(
+                  weight: item.weight,
+                  dateTime: item.dateTime,
+                );
+              },
+            )));
+  }
+}
+
+class WeightListTile extends StatelessWidget {
+  const WeightListTile(
+      {super.key, required this.weight, required this.dateTime});
+
+  final double weight;
+  final String dateTime;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(
+          '${weight.toString()} lbs',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue[700]!,
+          ),
+        ),
+        trailing: Text(dateTime, style: const TextStyle(fontSize: 10)),
+      ),
     );
   }
 }
