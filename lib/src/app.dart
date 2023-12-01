@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'authentication/auth_controller.dart';
 
 import 'views/login_view.dart';
-import 'weight/weight_item_details_view.dart';
 import 'weight/weight_item_list_view.dart';
 
 /// The Widget that configures your application.
@@ -52,8 +51,6 @@ class App extends StatelessWidget {
                 }
 
                 switch (routeSettings.name) {
-                  case WeightItemDetailsView.routeName:
-                    return const WeightItemDetailsView();
                   case WeightItemListView.routeName:
                   default:
                     return WeightItemListView(authController: authController);

@@ -36,6 +36,7 @@ class LoginView extends StatelessWidget {
           ),
         ),
         child: Center(
+          // Assumption - User only clicks once
           child: ElevatedButton(
             onPressed: authController.login,
             style: ElevatedButton.styleFrom(
