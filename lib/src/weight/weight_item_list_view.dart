@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../authentication/auth_controller.dart';
 import 'weight_item.dart';
-import 'weight_item_details_view.dart';
 
 /// Displays a list of WeightItems. This is the main view
 class WeightItemListView extends StatelessWidget {
