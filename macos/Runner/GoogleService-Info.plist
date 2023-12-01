@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCkLEp1PIXC61XQqrOXYWYsgxfaNi-ag0Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>512419182715</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.jasperWeightTracker.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>japser-code-challenge</string>
+	<key>STORAGE_BUCKET</key>
+	<string>japser-code-challenge.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:512419182715:ios:b366387f375a1cdd658ade</string>
+</dict>
+</plist>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "512419182715",
+    "project_id": "japser-code-challenge",
+    "storage_bucket": "japser-code-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512419182715:android:8e485d84bcfc2664658ade",
+        "android_client_info": {
+          "package_name": "com.example.jasper_experiment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxnpcHTNeFn369lRbhHnDicwGCwUsxolg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512419182715:android:dfaaadab3bc46eb3658ade",
+        "android_client_info": {
+          "package_name": "com.example.jasper_weight_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxnpcHTNeFn369lRbhHnDicwGCwUsxolg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
