@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:jasper_weight_tracker/src/store/store_controller.dart';
 
 import 'authentication/auth_controller.dart';
 
@@ -9,9 +10,14 @@ import 'weight/weight_item_list_view.dart';
 
 /// The Widget that configures your application.
 class App extends StatelessWidget {
-  const App({super.key, required this.authController});
+  const App({
+    super.key,
+    required this.authController,
+    required this.storeController,
+  });
 
   final AnonymousAuthController authController;
+  final StoreController storeController;
 
   @override
   Widget build(BuildContext context) {

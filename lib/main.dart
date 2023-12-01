@@ -7,5 +7,8 @@ import 'src/config/setup.dart';
 void main() async {
   final config = await setup();
 
-  runApp(App(authController: config.authController));
+  runApp(App(
+    authController: config.authController,
+    storeController: config.storeController,
+  ));
 }
