@@ -1,13 +1,18 @@
 class WeightItem {
-  final String id;
-  final String dateTime;
-  final double weight;
-  final String userId;
+  String? id;
+  String dateTime;
+  double weight;
+  String userId;
 
-  const WeightItem({
-    required this.id,
-    required this.dateTime,
+  WeightItem({
+    this.id,
+    String? dateTime,
     required this.weight,
     required this.userId,
-  });
+  }) : dateTime = dateTime ?? DateTime.now().toString();
+
+  @override
+  String toString() {
+    return 'Weight Item - ID: $id, Date Time: $dateTime, Weight: $weight, User ID: $userId';
+  }
 }

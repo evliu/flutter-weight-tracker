@@ -20,7 +20,7 @@ class LoginView extends StatelessWidget {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue[800]!, Colors.blue[600]!],
+              colors: [Colors.blue[800]!, Colors.blue[400]!],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

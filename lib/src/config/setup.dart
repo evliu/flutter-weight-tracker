@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/widgets.dart';
+import 'package:jasper_weight_tracker/src/store/mock_store_service.dart';
 
 import '../authentication/auth_controller.dart';
 import '../authentication/firebase_auth_service.dart';
@@ -14,6 +16,8 @@ class SetupResult {
 }
 
 Future<SetupResult> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,7 +27,9 @@ Future<SetupResult> setup() async {
   final authController = AnonymousAuthController(FirebaseAuthService());
 
   // Setup Firebase Firestore
-  final storeController = StoreController(FirestoreService());
+  // var storeService = FirestoreService();
+  final storeService = MockStoreService();
+  final storeController = StoreController(storeService);
 
   return SetupResult(
     authController: authController,

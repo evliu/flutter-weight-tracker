@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jasper_weight_tracker/src/store/store_service.dart';
-import 'package:jasper_weight_tracker/src/weight/weight_item.dart';
+
+import '../weight/weight_item.dart';
+import 'store_service.dart';
 
 class FirestoreService implements StoreService {
   final _db = FirebaseFirestore.instance;

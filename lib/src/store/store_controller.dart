@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import '../weight/weight_item.dart';
 import 'store_service.dart';
 
 class StoreController with ChangeNotifier {
-  StoreController(this._storeService);
+  StoreController(this._storeService) {
+    loadWeightItems();
+  }
 
   final StoreService _storeService;
-
   late List<WeightItem> _weightItems;
-
   List<WeightItem> get weightItems => _weightItems;
 
   Future<void> loadWeightItems() async {
@@ -18,29 +18,28 @@ class StoreController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addStore(WeightItem item) async {
+  Future<void> addWeightItem(WeightItem item) async {
     _weightItems.add(item);
-
+    await _storeService.addWeightItem(item);
+    await loadWeightItems();
     notifyListeners();
-
-    return _storeService.addWeightItem(item);
   }
 
-  Future<void> updateStore(WeightItem item) async {
+  Future<void> updateWeightItem(WeightItem item) async {
     final index = _weightItems.indexWhere((s) => s.id == item.id);
 
     _weightItems[index] = item;
 
+    await _storeService.updateWeightItem(item);
+    await loadWeightItems();
     notifyListeners();
-
-    return _storeService.updateWeightItem(item);
   }
 
-  Future<void> deleteStore(WeightItem item) async {
+  Future<void> deleteWeightItem(WeightItem item) async {
     _weightItems.remove(item);
 
+    await _storeService.deleteWeightItem(item);
+    await loadWeightItems();
     notifyListeners();
-
-    return _storeService.deleteWeightItem(item);
   }
 }
