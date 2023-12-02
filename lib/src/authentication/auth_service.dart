@@ -3,4 +3,5 @@ abstract class AnonymousAuthService {
   Future<bool> login();
   void logout();
   bool isLoggedIn();
+  String? get userId;
 }

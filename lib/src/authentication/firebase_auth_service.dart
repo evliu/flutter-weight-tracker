@@ -21,12 +21,11 @@ class FirebaseAuthService implements AnonymousAuthService {
   }
 
   @override
-  void logout() {
-    FirebaseAuth.instance.signOut();
-  }
+  void logout() => FirebaseAuth.instance.signOut();
 
   @override
-  bool isLoggedIn() {
-    return FirebaseAuth.instance.currentUser != null;
-  }
+  bool isLoggedIn() => FirebaseAuth.instance.currentUser != null;
+
+  @override
+  String? get userId => FirebaseAuth.instance.currentUser?.uid;
 }

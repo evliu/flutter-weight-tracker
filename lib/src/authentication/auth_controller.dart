@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import 'auth_service.dart';
 
@@ -39,4 +38,5 @@ class AnonymousAuthController with ChangeNotifier {
   }
 
   bool isLoggedIn() => _authService.isLoggedIn();
+  String? get userId => _authService.userId;
 }
