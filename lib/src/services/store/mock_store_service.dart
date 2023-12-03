@@ -43,4 +43,8 @@ class MockStoreService implements StoreService {
       mockWeightItems[index] = item;
     }
   }
+
+  @override
+  void addWeightItemsSnapshopListener(
+      void Function(List<WeightItem> list) callback) {}
 }

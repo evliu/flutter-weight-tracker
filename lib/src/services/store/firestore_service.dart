@@ -1,22 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 
 import '../../weight/weight_item.dart';
 import 'store_service.dart';
 
 class FirestoreService implements StoreService {
-  static final parser = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse;
-  static final displayFormater = DateFormat('M/d/yyyy\nh:mm:ssa').format;
-
+  final collection = 'weight-items';
   final _db = FirebaseFirestore.instance;
 
   @override
   late String userId;
 
   @override
+  void addWeightItemsSnapshopListener(
+      void Function(List<WeightItem>) callback) {
+    _db
+        .collection(collection)
+        // .where('userId', isEqualTo: userId) // if we were to permission against the user
+        .orderBy('dateTime', descending: true)
+        .snapshots()
+        .listen(
+          (snapshot) => callback(
+            snapshot.docs
+                .map(
+                  (doc) => WeightItem(
+                    id: doc.id,
+                    dateTime: doc['dateTime'],
+                    weight: doc['weight'].toDouble(),
+                    userId: doc['userId'],
+                  ),
+                )
+                .toList(),
+          ),
+        );
+  }
+
+  @override
   Future<List<WeightItem>> getWeightItems() {
     return _db
-        .collection('weight_items')
+        .collection(collection)
         // .where('userId', isEqualTo: userId) // if we were to permission against the user
         .orderBy('dateTime', descending: true)
         .get()
@@ -25,8 +46,8 @@ class FirestoreService implements StoreService {
               .map(
                 (doc) => WeightItem(
                   id: doc.id,
-                  dateTime: displayFormater(parser(doc['dateTime'])),
-                  weight: doc['weight'],
+                  dateTime: doc['dateTime'],
+                  weight: doc['weight'].toDouble(),
                   userId: doc['userId'],
                 ),
               )
@@ -36,7 +57,7 @@ class FirestoreService implements StoreService {
 
   @override
   Future<void> addWeightItem(WeightItem item) async {
-    await _db.collection('weight_items').add({
+    await _db.collection(collection).add({
       'dateTime': item.dateTime,
       'weight': item.weight,
       'userId': item.userId,
@@ -45,12 +66,12 @@ class FirestoreService implements StoreService {
 
   @override
   Future<void> deleteWeightItem(String id) async {
-    await _db.collection('weight_items').doc(id).delete();
+    await _db.collection(collection).doc(id).delete();
   }
 
   @override
   Future<void> updateWeightItem(WeightItem item) async {
-    await _db.collection('weight_items').doc(item.id).update({
+    await _db.collection(collection).doc(item.id).update({
       'dateTime': item.dateTime,
       'weight': item.weight,
       'userId': item.userId,

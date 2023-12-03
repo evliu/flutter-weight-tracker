@@ -16,4 +16,8 @@ abstract class StoreService {
 
   /// Deletes a WeightItem from the store
   Future<void> deleteWeightItem(String id) async {}
+
+  /// Optional: Adds a listener to the store
+  void addWeightItemsSnapshopListener(
+      void Function(List<WeightItem> list) callback) {}
 }

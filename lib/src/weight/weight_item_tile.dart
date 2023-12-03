@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 import 'weight_item.dart';
 
@@ -7,6 +8,9 @@ import 'weight_item.dart';
  * Note: Due to time constraint, messy code is left in place.
  * TODO: clean up this code
  */
+
+String toDisplayFormat(String date) => DateFormat('M/d/yyyy\nh:mm:ssa')
+    .format(DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse(date));
 
 class WeightItemCard extends StatelessWidget {
   const WeightItemCard({
@@ -49,8 +53,8 @@ class WeightItemCard extends StatelessWidget {
         elevation: 12,
         child: ListTile(
           leading: Text(
-            weightItem.dateTime,
-            style: const TextStyle(fontSize: 8),
+            toDisplayFormat(weightItem.dateTime),
+            style: const TextStyle(fontSize: 12),
           ),
           title: Center(
             child: Text(

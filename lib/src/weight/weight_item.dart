@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 
 class WeightItem {
   String? id;
@@ -58,8 +57,7 @@ class FirebaseWeightItem extends WeightItem {
   /// Create a WeightItem from a Map<String, dynamic> from Firestore
   FirebaseWeightItem.fromJson(Map<String, Object?> json)
       : this(
-          dateTime: DateFormat('M/d/yyyy\nh:mm:ssa')
-              .format((json['dateTime'] as Timestamp).toDate()),
+          dateTime: json['dateTime'] as String,
           weight: json['weight']! as double,
           userId: json['userId']! as String,
         );

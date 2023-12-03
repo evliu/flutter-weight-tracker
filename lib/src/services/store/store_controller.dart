@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 import '../../weight/weight_item.dart';
@@ -6,6 +8,11 @@ import 'store_service.dart';
 class StoreController with ChangeNotifier {
   StoreController(this._storeService) {
     loadWeightItems();
+
+    _storeService.addWeightItemsSnapshopListener((items) {
+      _weightItems = items;
+      notifyListeners();
+    });
   }
 
   final StoreService _storeService;

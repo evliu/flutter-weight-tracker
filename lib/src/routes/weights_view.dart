@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../weight/empty_list_view.dart';
 import '../weight/weight_item.dart';
 import '../weight/weight_list_view.dart';
 
@@ -53,60 +54,58 @@ class WeightItemListView extends StatelessWidget {
               updateWeightItem: updateWeightItem,
               deleteWeightItem: deleteWeightItem,
             )
-          : const Center(child: Text('Please add a weight.')),
-      floatingActionButton: addWeightItem != null
-          ? Opacity(
-              opacity: 0.9,
-              child: FloatingActionButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Add Weight'),
-                        content: TextField(
-                          autofocus: true,
-                          controller: addTextFieldController,
-                          decoration: const InputDecoration(labelText: 'lbs'),
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp(r'^\d+\.?\d{0,2}'),
-                            ), // Allow only numbers with up to 2 decimal places
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: Navigator.of(context).pop,
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              final weight =
-                                  double.tryParse(addTextFieldController.text);
+          : const EmptyWeightListView(),
+      floatingActionButton: Opacity(
+        opacity: 0.9,
+        child: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Add Weight'),
+                  content: TextField(
+                    autofocus: true,
+                    controller: addTextFieldController,
+                    decoration: const InputDecoration(labelText: 'lbs'),
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}'),
+                      ), // Allow only numbers with up to 2 decimal places
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: Navigator.of(context).pop,
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        final weight =
+                            double.tryParse(addTextFieldController.text);
 
-                              if (weight != null && addWeightItem != null) {
-                                addWeightItem!(weight);
-                              }
+                        if (weight != null && addWeightItem != null) {
+                          addWeightItem!(weight);
+                        }
 
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Add'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                backgroundColor: Colors.blue[700]!,
-                foregroundColor: Colors.white,
-                mini: true,
-                shape: const CircleBorder(),
-                child: const Icon(Icons.add),
-              ),
-            )
-          : null,
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Add'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          backgroundColor: Colors.blue[700]!,
+          foregroundColor: Colors.white,
+          mini: true,
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add),
+        ),
+      ),
     );
   }
 }
