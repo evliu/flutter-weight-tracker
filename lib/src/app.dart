@@ -43,63 +43,68 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildWithListenable(
-      [authController, storeController],
-      (context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        restorationScopeId: 'jasper.weight.tracker.app',
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('en', '')],
-        //  localization/*.arb
-        onGenerateTitle: (BuildContext context) =>
-            AppLocalizations.of(context)!.appTitle,
-        theme: ThemeData(
-          useMaterial3: true,
-          appBarTheme: AppBarTheme(
-            color: Colors.blue[700],
-            foregroundColor: Colors.white,
-          ),
-        ),
+    return ListenableBuilder(
+      listenable: authController,
+      builder: (BuildContext context, Widget? child) {
+        return ListenableBuilder(
+          listenable: storeController,
+          builder: (BuildContext context, Widget? child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            restorationScopeId: 'jasper.weight.tracker.app',
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('en', '')],
+            //  localization/*.arb
+            onGenerateTitle: (BuildContext context) =>
+                AppLocalizations.of(context)!.appTitle,
+            theme: ThemeData(
+              useMaterial3: true,
+              appBarTheme: AppBarTheme(
+                color: Colors.blue[700],
+                foregroundColor: Colors.white,
+              ),
+            ),
 
-        // Flutter web url navigation and deep linking.
-        onGenerateRoute: (RouteSettings routeSettings) {
-          return MaterialPageRoute<void>(
-            settings: routeSettings,
-            builder: (BuildContext context) {
-              if (!authController.isLoggedIn()) {
-                return LoginView(authController: authController);
-              }
+            // Flutter web url navigation and deep linking.
+            onGenerateRoute: (RouteSettings routeSettings) {
+              return MaterialPageRoute<void>(
+                settings: routeSettings,
+                builder: (BuildContext context) {
+                  if (!authController.isLoggedIn()) {
+                    return LoginView(authController: authController);
+                  }
 
-              switch (routeSettings.name) {
-                case WeightItemListView.routeName:
-                default:
-                  return WeightItemListView(
-                    logout: authController.logout,
-                    items: storeController.weightItems,
-                    addWeightItem: (weight) {
-                      if (authController.userId != null) {
-                        storeController.addWeightItem(
-                          WeightItem(
-                            weight: weight,
-                            dateTime: DateTime.now().toString(),
-                            userId: authController.userId!,
-                          ),
-                        );
-                      }
-                    },
-                    updateWeightItem: storeController.updateWeightItem,
-                    deleteWeightItem: storeController.deleteWeightItem,
-                  );
-              }
+                  switch (routeSettings.name) {
+                    case WeightItemListView.routeName:
+                    default:
+                      return WeightItemListView(
+                        logout: authController.logout,
+                        items: storeController.weightItems,
+                        addWeightItem: (weight) {
+                          if (authController.userId != null) {
+                            storeController.addWeightItem(
+                              WeightItem(
+                                weight: weight,
+                                dateTime: DateTime.now().toString(),
+                                userId: authController.userId!,
+                              ),
+                            );
+                          }
+                        },
+                        updateWeightItem: storeController.updateWeightItem,
+                        deleteWeightItem: storeController.deleteWeightItem,
+                      );
+                  }
+                },
+              );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
