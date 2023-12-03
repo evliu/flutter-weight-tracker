@@ -1,4 +1,4 @@
-# jasper_weight_tracker
+# weight_tracker
 
 A new Flutter project.
 

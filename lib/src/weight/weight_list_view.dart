@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'weight_item.dart';
-import 'weight_list_tile_view.dart';
+import 'weight_item_tile.dart';
 
 class WeightList extends StatelessWidget {
-  WeightList({
+  const WeightList({
     super.key,
     required this.items,
-    void Function(String id, WeightItem item)? updateWeightItem,
-    void Function(String id)? deleteWeightItem,
-  })  : updateWeightItem =
-            updateWeightItem ?? ((String id, WeightItem item) => {}),
-        deleteWeightItem = deleteWeightItem ?? ((String id) => {});
+    required this.updateWeightItem,
+    required this.deleteWeightItem,
+  });
 
   final List<WeightItem> items;
 
-  final void Function(String id, WeightItem item) updateWeightItem;
+  final void Function(WeightItem item) updateWeightItem;
   final void Function(String id) deleteWeightItem;
 
   @override
@@ -36,9 +34,19 @@ class WeightList extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             final item = items[index];
 
-            return WeightListTile(
-              weight: item.weight,
-              dateTime: item.dateTime,
+            return WeightItemCard(
+              weightItem: item,
+              onDelete: () async => deleteWeightItem(item.id!),
+              onUpdate: (double newWeight) async {
+                updateWeightItem(
+                  WeightItem(
+                    id: item.id,
+                    dateTime: item.dateTime,
+                    weight: newWeight,
+                    userId: item.userId,
+                  ),
+                );
+              },
             );
           },
         ),

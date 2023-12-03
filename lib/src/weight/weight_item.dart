@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
 class WeightItem {
   String? id;
   String dateTime;
@@ -15,4 +18,49 @@ class WeightItem {
   String toString() {
     return 'Weight Item - ID: $id, Date Time: $dateTime, Weight: $weight, User ID: $userId';
   }
+}
+
+/// A WeightItem that can be converted to and from Firestore
+class FirebaseWeightItem extends WeightItem {
+  FirebaseWeightItem({
+    super.id,
+    super.dateTime,
+    required super.weight,
+    required super.userId,
+  });
+
+  factory FirebaseWeightItem.fromMap(Map<String, dynamic> data, String id) {
+    return FirebaseWeightItem(
+      id: id,
+      dateTime: data['dateTime'],
+      weight: data['weight'],
+      userId: data['userId'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'dateTime': dateTime,
+      'weight': weight,
+      'userId': userId,
+    };
+  }
+
+  /// Convert a WeightItem into a Map<String, dynamic> for Firestore
+  Map<String, Object?> toJson() {
+    return {
+      'dateTime': Timestamp.fromDate(DateTime.parse(dateTime)),
+      'weight': weight,
+      'userId': userId,
+    };
+  }
+
+  /// Create a WeightItem from a Map<String, dynamic> from Firestore
+  FirebaseWeightItem.fromJson(Map<String, Object?> json)
+      : this(
+          dateTime: DateFormat('M/d/yyyy\nh:mm:ssa')
+              .format((json['dateTime'] as Timestamp).toDate()),
+          weight: json['weight']! as double,
+          userId: json['userId']! as String,
+        );
 }

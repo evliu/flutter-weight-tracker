@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../authentication/auth_controller.dart';
-
 class LoginView extends StatelessWidget {
   static const routeName = '/login';
 
-  const LoginView({
-    super.key,
-    required this.authController,
-  });
+  const LoginView({super.key, required this.login});
 
-  final AnonymousAuthController authController;
+  final Function() login;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jasper Weight Tracker'),
+        title: const Text('Weight Tracker'),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -38,7 +33,7 @@ class LoginView extends StatelessWidget {
         child: Center(
           // Assumption - User only clicks once
           child: ElevatedButton(
-            onPressed: authController.login,
+            onPressed: login,
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.blue[800]!,

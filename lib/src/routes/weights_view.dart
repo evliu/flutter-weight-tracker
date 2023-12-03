@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'weight_item.dart';
-import 'weight_list_view.dart';
+import '../weight/weight_item.dart';
+import '../weight/weight_list_view.dart';
 
 /// Displays a list of WeightItems. This is the main view
 class WeightItemListView extends StatelessWidget {
@@ -11,18 +11,18 @@ class WeightItemListView extends StatelessWidget {
   WeightItemListView({
     super.key,
     this.items = const <WeightItem>[],
-    this.logout,
-    this.addWeightItem,
-    this.updateWeightItem,
-    this.deleteWeightItem,
+    required this.logout,
+    required this.addWeightItem,
+    required this.updateWeightItem,
+    required this.deleteWeightItem,
   });
 
-  final void Function()? logout;
+  final void Function() logout;
 
   final List<WeightItem> items;
-  final void Function(double weight)? addWeightItem;
-  final void Function(WeightItem item)? updateWeightItem;
-  final void Function(String id)? deleteWeightItem;
+  final void Function(double weight) addWeightItem;
+  final void Function(WeightItem item) updateWeightItem;
+  final void Function(String id) deleteWeightItem;
 
   final addTextFieldController = TextEditingController();
 
@@ -30,7 +30,7 @@ class WeightItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jasper Weight Tracker'),
+        title: const Text('Weight Tracker'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white70),
@@ -48,7 +48,11 @@ class WeightItemListView extends StatelessWidget {
         ),
       ),
       body: items.isNotEmpty
-          ? WeightList(items: items)
+          ? WeightList(
+              items: items,
+              updateWeightItem: updateWeightItem,
+              deleteWeightItem: deleteWeightItem,
+            )
           : const Center(child: Text('Please add a weight.')),
       floatingActionButton: addWeightItem != null
           ? Opacity(

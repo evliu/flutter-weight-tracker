@@ -1,4 +1,4 @@
-import '../weight/weight_item.dart';
+import '../../weight/weight_item.dart';
 
 /// Abstract class for the StoreService using WeightItem as the model
 

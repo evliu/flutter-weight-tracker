@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jasper_weight_tracker/src/store/mock_store_service.dart';
 // import 'package:jasper_weight_tracker/src/store/mock_store_service.dart';
 
-import '../authentication/auth_controller.dart';
-import '../authentication/firebase_auth_service.dart';
-import '../store/firestore_service.dart';
-import '../store/store_controller.dart';
+import '../services/authentication/auth_controller.dart';
+import '../services/authentication/firebase_auth_service.dart';
+import '../services/store/firestore_service.dart';
+import '../services/store/store_controller.dart';
 import 'firebase_options.dart';
 
 class SetupResult {

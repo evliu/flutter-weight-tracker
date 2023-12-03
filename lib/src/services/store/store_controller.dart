@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../weight/weight_item.dart';
+import '../../weight/weight_item.dart';
 import 'store_service.dart';
 
 class StoreController with ChangeNotifier {
@@ -17,7 +17,16 @@ class StoreController with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addWeightItem(WeightItem item) async {
+  Future<void> addWeightItem({
+    String userId = '',
+    required double weight,
+  }) async {
+    var item = WeightItem(
+      weight: weight,
+      dateTime: DateTime.now().toString(),
+      userId: userId,
+    );
+
     await _storeService.addWeightItem(item);
     await loadWeightItems();
     notifyListeners();
@@ -32,7 +41,6 @@ class StoreController with ChangeNotifier {
   Future<void> deleteWeightItem(String id) async {
     await _storeService.deleteWeightItem(id);
     await loadWeightItems();
-
     notifyListeners();
   }
 }

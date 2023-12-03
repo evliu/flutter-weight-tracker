@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jasper_weight_tracker/src/app.dart';
 
+import 'src/app.dart';
 import 'src/config/setup.dart';
 
 // Wire up the app
