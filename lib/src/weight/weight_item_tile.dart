@@ -78,10 +78,13 @@ class WeightItemCard extends StatelessWidget {
                     title: const Text('Edit Weight'),
                     content: TextFormField(
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}'),
+                        )
                       ],
                       controller: controller,
-                      keyboardType: TextInputType.number,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: false),
                     ),
                     actions: [
                       TextButton(

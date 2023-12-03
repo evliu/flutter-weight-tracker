@@ -86,8 +86,8 @@ class WeightItemListView extends StatelessWidget {
                         final weight =
                             double.tryParse(addTextFieldController.text);
 
-                        if (weight != null && addWeightItem != null) {
-                          addWeightItem!(weight);
+                        if (weight != null) {
+                          addWeightItem(weight);
                         }
 
                         Navigator.of(context).pop();
