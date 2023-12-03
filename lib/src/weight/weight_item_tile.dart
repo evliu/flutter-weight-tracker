@@ -6,6 +6,9 @@ import 'weight_item.dart';
 
 /*
  * Note: Due to time constraint, messy code is left in place.
+ *   Most of the code here should be broken down into smaller widgets.
+ *   This is a good exercise for refactoring practice.
+ * 
  * TODO: clean up this code
  */
 
