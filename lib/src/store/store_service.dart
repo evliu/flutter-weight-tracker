@@ -15,5 +15,5 @@ abstract class StoreService {
   Future<void> updateWeightItem(WeightItem item) async {}
 
   /// Deletes a WeightItem from the store
-  Future<void> deleteWeightItem(WeightItem item) async {}
+  Future<void> deleteWeightItem(String id) async {}
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jasper_weight_tracker/src/store/mock_store_service.dart';
+// import 'package:jasper_weight_tracker/src/store/mock_store_service.dart';
 
 import '../authentication/auth_controller.dart';
 import '../authentication/firebase_auth_service.dart';
@@ -28,8 +29,8 @@ Future<SetupResult> setup() async {
 
   // Setup Firebase Firestore
   // var storeService = FirestoreService();
-  final storeService = MockStoreService();
-  final storeController = StoreController(storeService);
+  // final storeService = MockStoreService();
+  final storeController = StoreController(FirestoreService());
 
   return SetupResult(
     authController: authController,

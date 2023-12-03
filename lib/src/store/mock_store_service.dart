@@ -54,14 +54,13 @@ class MockStoreService implements StoreService {
   }
 
   @override
-  Future<void> deleteWeightItem(WeightItem item) async {
-    mockWeightItems.remove(item);
+  Future<void> deleteWeightItem(String id) async {
+    mockWeightItems.remove(mockWeightItems.firstWhere((el) => el.id == id));
   }
 
   @override
   Future<void> updateWeightItem(WeightItem item) async {
-    final index =
-        mockWeightItems.indexWhere((element) => element.id == item.id);
+    final index = mockWeightItems.indexWhere((el) => el.id == item.id);
     if (index != -1) {
       mockWeightItems[index] = item;
     }

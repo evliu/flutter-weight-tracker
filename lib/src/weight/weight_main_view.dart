@@ -17,12 +17,12 @@ class WeightItemListView extends StatelessWidget {
     this.deleteWeightItem,
   });
 
-  void Function()? logout;
+  final void Function()? logout;
 
   final List<WeightItem> items;
-  void Function(double weight)? addWeightItem;
-  void Function(WeightItem item)? updateWeightItem;
-  void Function(WeightItem item)? deleteWeightItem;
+  final void Function(double weight)? addWeightItem;
+  final void Function(WeightItem item)? updateWeightItem;
+  final void Function(String id)? deleteWeightItem;
 
   final addTextFieldController = TextEditingController();
 
@@ -47,7 +47,9 @@ class WeightItemListView extends StatelessWidget {
           ),
         ),
       ),
-      body: WeightList(items: items),
+      body: items.isNotEmpty
+          ? WeightList(items: items)
+          : const Center(child: Text('Please add a weight.')),
       floatingActionButton: addWeightItem != null
           ? Opacity(
               opacity: 0.9,

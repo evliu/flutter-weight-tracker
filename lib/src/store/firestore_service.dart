@@ -13,18 +13,21 @@ class FirestoreService implements StoreService {
   Future<List<WeightItem>> getWeightItems() {
     return _db
         .collection('weight_items')
-        .where('userId', isEqualTo: userId)
+        // .where('userId', isEqualTo: userId) // if we were to permission against the user
+        .orderBy('dateTime', descending: true)
         .get()
-        .then((snapshot) => snapshot.docs
-            .map(
-              (doc) => WeightItem(
-                id: doc.id,
-                dateTime: doc['dateTime'],
-                weight: doc['weight'],
-                userId: doc['userId'],
-              ),
-            )
-            .toList());
+        .then(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => WeightItem(
+                  id: doc.id,
+                  dateTime: doc['dateTime'],
+                  weight: doc['weight'],
+                  userId: doc['userId'],
+                ),
+              )
+              .toList(),
+        );
   }
 
   @override
@@ -34,15 +37,11 @@ class FirestoreService implements StoreService {
       'weight': item.weight,
       'userId': item.userId,
     });
-
-    getWeightItems();
   }
 
   @override
-  Future<void> deleteWeightItem(WeightItem item) async {
-    await _db.collection('weight_items').doc(item.id).delete();
-
-    getWeightItems();
+  Future<void> deleteWeightItem(String id) async {
+    await _db.collection('weight_items').doc(id).delete();
   }
 
   @override
@@ -52,7 +51,5 @@ class FirestoreService implements StoreService {
       'weight': item.weight,
       'userId': item.userId,
     });
-
-    getWeightItems();
   }
 }

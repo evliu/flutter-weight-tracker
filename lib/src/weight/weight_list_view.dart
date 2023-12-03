@@ -7,15 +7,16 @@ class WeightList extends StatelessWidget {
   WeightList({
     super.key,
     required this.items,
-    void Function(WeightItem item)? updateWeightItem,
-    void Function(WeightItem item)? deleteWeightItem,
-  })  : updateWeightItem = updateWeightItem ?? ((WeightItem item) => {}),
-        deleteWeightItem = deleteWeightItem ?? ((WeightItem item) => {});
+    void Function(String id, WeightItem item)? updateWeightItem,
+    void Function(String id)? deleteWeightItem,
+  })  : updateWeightItem =
+            updateWeightItem ?? ((String id, WeightItem item) => {}),
+        deleteWeightItem = deleteWeightItem ?? ((String id) => {});
 
   final List<WeightItem> items;
 
-  void Function(WeightItem item) updateWeightItem;
-  void Function(WeightItem item) deleteWeightItem;
+  final void Function(String id, WeightItem item) updateWeightItem;
+  final void Function(String id) deleteWeightItem;
 
   @override
   Widget build(BuildContext context) {
